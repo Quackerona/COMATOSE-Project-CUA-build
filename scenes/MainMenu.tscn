@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://okhhqwcgvfap"]
+
+[ext_resource type="FontFile" uid="uid://clwl5mqvlxjh4" path="res://assets/fonts/camingo.ttf" id="1_2mlw1"]
+[ext_resource type="Script" path="res://source/menu/MainMenuBehavior.cs" id="1_kgjcw"]
+[ext_resource type="Shader" path="res://assets/shaders/Color.gdshader" id="2_w8rkw"]
+[ext_resource type="Script" path="res://source/menu/StateButton.cs" id="3_i6mav"]
+[ext_resource type="Shader" path="res://assets/shaders/Pc.gdshader" id="3_mwgsd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_564vh"]
+font = ExtResource("1_2mlw1")
+font_size = 71
+
+[sub_resource type="LabelSettings" id="LabelSettings_62qto"]
+font = ExtResource("1_2mlw1")
+font_size = 46
+
+[sub_resource type="LabelSettings" id="LabelSettings_shdon"]
+font = ExtResource("1_2mlw1")
+font_size = 46
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ipuoo"]
+shader = ExtResource("2_w8rkw")
+shader_parameter/brightness = -0.1
+shader_parameter/contrast = 2.0
+shader_parameter/saturation = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vw1ng"]
+shader = ExtResource("3_mwgsd")
+shader_parameter/curvature = 1.0
+shader_parameter/smear = 1.0
+shader_parameter/scanline_count = 300.0
+shader_parameter/blur_samples = 10
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_kgjcw")
+
+[node name="Title" type="Label" parent="."]
+offset_left = 484.0
+offset_top = 242.0
+offset_right = 796.0
+offset_bottom = 314.0
+text = "comatose"
+label_settings = SubResource("LabelSettings_564vh")
+
+[node name="Play" type="Label" parent="."]
+offset_left = 590.0
+offset_top = 344.0
+offset_right = 690.0
+offset_bottom = 391.0
+mouse_filter = 0
+text = "play"
+label_settings = SubResource("LabelSettings_62qto")
+script = ExtResource("3_i6mav")
+state = "songs/Comatose"
+
+[node name="Options" type="Label" parent="."]
+offset_left = 552.5
+offset_top = 400.0
+offset_right = 727.5
+offset_bottom = 447.0
+mouse_filter = 0
+text = "options"
+label_settings = SubResource("LabelSettings_shdon")
+script = ExtResource("3_i6mav")
+state = "OptionsMenu"
+
+[node name="SaturationShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="SaturationShader"]
+material = SubResource("ShaderMaterial_ipuoo")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="PcShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="PcShader"]
+material = SubResource("ShaderMaterial_vw1ng")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2

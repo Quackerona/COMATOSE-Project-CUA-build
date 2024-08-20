@@ -1,0 +1,403 @@
+[gd_scene load_steps=38 format=3 uid="uid://b1qjuyosbwiyp"]
+
+[ext_resource type="Script" path="res://source/gameplay/GameController.cs" id="1_mrf43"]
+[ext_resource type="AudioStream" uid="uid://b3jcl5haq5enp" path="res://assets/sounds/pauseTheme.ogg" id="2_6cbr7"]
+[ext_resource type="AudioStream" uid="uid://ka4abdejp13v" path="res://assets/songs/comatose/Inst.ogg" id="2_tlmxw"]
+[ext_resource type="Script" path="res://source/gameplay/PauseController.cs" id="3_1vtrr"]
+[ext_resource type="Script" path="res://source/gameplay/events/ComatoseEvent.cs" id="4_myqid"]
+[ext_resource type="SpriteFrames" uid="uid://blqx50ankp4ql" path="res://assets/images/characters/invis/anims.tres" id="5_m0x2t"]
+[ext_resource type="Script" path="res://source/gameplay/Character.cs" id="6_bwng1"]
+[ext_resource type="Shader" path="res://assets/shaders/Checker.gdshader" id="6_ea3os"]
+[ext_resource type="SpriteFrames" uid="uid://ky4s7ykoue4q" path="res://assets/images/characters/boiledone/anims.tres" id="7_mf1nx"]
+[ext_resource type="SpriteFrames" uid="uid://c1p3ebdhfr8ja" path="res://assets/images/noteskins/default/left.tres" id="8_xmp8i"]
+[ext_resource type="FontFile" uid="uid://clwl5mqvlxjh4" path="res://assets/fonts/camingo.ttf" id="9_1n0h1"]
+[ext_resource type="Script" path="res://source/gameplay/StrumNote.cs" id="9_2f7o4"]
+[ext_resource type="SpriteFrames" uid="uid://cpn8ifihpxyct" path="res://assets/images/noteskins/default/down.tres" id="10_sm2gn"]
+[ext_resource type="SpriteFrames" uid="uid://cl811qy2ltn6q" path="res://assets/images/noteskins/default/up.tres" id="11_tsyql"]
+[ext_resource type="SpriteFrames" uid="uid://v682w4bvxr02" path="res://assets/images/noteskins/default/right.tres" id="12_1lfp3"]
+[ext_resource type="Texture2D" uid="uid://bh23rn2fv5a0b" path="res://assets/images/healthbars/default/healthBar.png" id="13_e3t33"]
+[ext_resource type="Texture2D" uid="uid://b13t72iorx2v8" path="res://assets/images/healthbars/default/healthBarFull.png" id="14_6qc3h"]
+[ext_resource type="Script" path="res://source/gameplay/PauseButton.cs" id="15_rjupw"]
+[ext_resource type="Script" path="res://source/menu/options/Number.cs" id="16_3uh64"]
+[ext_resource type="Shader" path="res://assets/shaders/Bloom.gdshader" id="17_d5lgb"]
+[ext_resource type="Shader" path="res://assets/shaders/Color.gdshader" id="18_xwplt"]
+[ext_resource type="Shader" path="res://assets/shaders/Pc.gdshader" id="19_i8ks2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0mbr2"]
+shader = ExtResource("6_ea3os")
+shader_parameter/cells = 36.0
+shader_parameter/speed = -0.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_x5crs"]
+font = ExtResource("9_1n0h1")
+font_size = 70
+
+[sub_resource type="LabelSettings" id="LabelSettings_bfp4o"]
+font = ExtResource("9_1n0h1")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_0oq5t"]
+font_size = 20
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aobx1"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_4r0c1"]
+font_size = 31
+outline_size = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_x7iss"]
+font_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_hwxbj"]
+font_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_k0plx"]
+font_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_iexj7"]
+font_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_6sjof"]
+font_size = 15
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ndkuf"]
+color = Color(0.34902, 0.662745, 0.886275, 1)
+thickness = 8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tthqh"]
+shader = ExtResource("17_d5lgb")
+shader_parameter/intensity = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6762k"]
+shader = ExtResource("18_xwplt")
+shader_parameter/brightness = -0.1
+shader_parameter/contrast = 2.0
+shader_parameter/saturation = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h38fx"]
+shader = ExtResource("19_i8ks2")
+shader_parameter/curvature = 1.0
+shader_parameter/smear = 1.0
+shader_parameter/scanline_count = 300.0
+shader_parameter/blur_samples = 10
+
+[node name="Comatose" type="Node2D"]
+script = ExtResource("1_mrf43")
+
+[node name="Inst" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_tlmxw")
+
+[node name="Pause" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_6cbr7")
+
+[node name="PauseHandler" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("3_1vtrr")
+
+[node name="EventHandler" type="Node" parent="."]
+script = ExtResource("4_myqid")
+
+[node name="GameViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="GameViewport" type="SubViewport" parent="GameViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="GameViewportContainer/GameViewport"]
+ignore_rotation = false
+position_smoothing_speed = 10.0
+
+[node name="Red" type="ColorRect" parent="GameViewportContainer/GameViewport"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -860.0
+offset_top = -640.0
+offset_right = 2140.0
+offset_bottom = 1360.0
+color = Color(1, 0, 0, 1)
+
+[node name="Checker" type="ColorRect" parent="GameViewportContainer/GameViewport"]
+visible = false
+material = SubResource("ShaderMaterial_0mbr2")
+offset_left = -640.0
+offset_top = -1240.0
+offset_right = 1920.0
+offset_bottom = 1960.0
+
+[node name="Bg" type="ColorRect" parent="GameViewportContainer/GameViewport"]
+offset_left = 280.0
+offset_right = 1000.0
+offset_bottom = 720.0
+
+[node name="Opponent" type="AnimatedSprite2D" parent="GameViewportContainer/GameViewport"]
+visible = false
+position = Vector2(640, 360)
+sprite_frames = ExtResource("5_m0x2t")
+animation = &"arrowDown"
+script = ExtResource("6_bwng1")
+noMisses = true
+
+[node name="Player" type="AnimatedSprite2D" parent="GameViewportContainer/GameViewport"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(640, 360)
+sprite_frames = ExtResource("7_mf1nx")
+animation = &"idle"
+script = ExtResource("6_bwng1")
+noMisses = true
+
+[node name="BeginningLayer" type="CanvasLayer" parent="GameViewportContainer/GameViewport"]
+
+[node name="Black" type="ColorRect" parent="GameViewportContainer/GameViewport/BeginningLayer"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="GameViewportContainer/GameViewport/BeginningLayer"]
+visible = false
+offset_left = 484.0
+offset_top = 300.0
+offset_right = 796.0
+offset_bottom = 371.0
+text = "comatose"
+label_settings = SubResource("LabelSettings_x5crs")
+
+[node name="Credit" type="Label" parent="GameViewportContainer/GameViewport/BeginningLayer"]
+visible = false
+offset_left = 500.0
+offset_top = 370.0
+offset_right = 780.0
+offset_bottom = 396.0
+text = "sandi & vladosikos17"
+label_settings = SubResource("LabelSettings_bfp4o")
+
+[node name="HudViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="HudViewport" type="SubViewport" parent="HudViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="HudViewportContainer/HudViewport"]
+position = Vector2(640, 360)
+ignore_rotation = false
+
+[node name="StrumNotes" type="Node" parent="HudViewportContainer/HudViewport"]
+
+[node name="PlrLeft" type="AnimatedSprite2D" parent="HudViewportContainer/HudViewport/StrumNotes"]
+visible = false
+position = Vector2(472, 620)
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("8_xmp8i")
+animation = &"static"
+script = ExtResource("9_2f7o4")
+action = "arrowLeft"
+
+[node name="PlrDown" type="AnimatedSprite2D" parent="HudViewportContainer/HudViewport/StrumNotes"]
+visible = false
+position = Vector2(587, 620)
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("10_sm2gn")
+animation = &"static"
+script = ExtResource("9_2f7o4")
+action = "arrowDown"
+
+[node name="PlrUp" type="AnimatedSprite2D" parent="HudViewportContainer/HudViewport/StrumNotes"]
+visible = false
+position = Vector2(700, 620)
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("11_tsyql")
+animation = &"static"
+script = ExtResource("9_2f7o4")
+action = "arrowUp"
+
+[node name="PlrRight" type="AnimatedSprite2D" parent="HudViewportContainer/HudViewport/StrumNotes"]
+visible = false
+position = Vector2(813, 620)
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("12_1lfp3")
+animation = &"static"
+script = ExtResource("9_2f7o4")
+action = "arrowRight"
+
+[node name="Notes" type="Node" parent="HudViewportContainer/HudViewport"]
+
+[node name="Healthbar" type="TextureProgressBar" parent="HudViewportContainer/HudViewport"]
+visible = false
+offset_left = 339.5
+offset_top = 50.0
+offset_right = 940.5
+offset_bottom = 69.0
+max_value = 2.0
+step = 0.0
+value = 1.0
+fill_mode = 1
+texture_under = ExtResource("13_e3t33")
+texture_progress = ExtResource("14_6qc3h")
+tint_progress = Color(1, 0, 0, 1)
+
+[node name="Score" type="Label" parent="HudViewportContainer/HudViewport"]
+visible = false
+offset_left = 474.0
+offset_top = 80.0
+offset_right = 806.0
+offset_bottom = 108.0
+text = "Score: 0 | Accuracy: 0% | Misses: 0"
+label_settings = SubResource("LabelSettings_0oq5t")
+
+[node name="PauseViewportContainer" type="SubViewportContainer" parent="."]
+process_mode = 2
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PauseViewport" type="SubViewport" parent="PauseViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 0
+
+[node name="Panel" type="Panel" parent="PauseViewportContainer/PauseViewport"]
+offset_left = 440.0
+offset_top = 185.0
+offset_right = 840.0
+offset_bottom = 535.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_aobx1")
+
+[node name="Label" type="Label" parent="PauseViewportContainer/PauseViewport/Panel"]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 20.0
+offset_right = 292.0
+offset_bottom = 64.0
+text = "Game Menu"
+label_settings = SubResource("LabelSettings_4r0c1")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="PauseViewportContainer/PauseViewport/Panel"]
+layout_mode = 0
+offset_top = 47.0
+offset_right = 400.0
+offset_bottom = 350.0
+alignment = 1
+
+[node name="Resume" type="Control" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+script = ExtResource("15_rjupw")
+
+[node name="Label" type="Label" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer/Resume"]
+layout_mode = 2
+offset_left = 147.5
+offset_right = 252.5
+offset_bottom = 22.0
+mouse_filter = 0
+text = "Resume Game"
+label_settings = SubResource("LabelSettings_x7iss")
+
+[node name="Restart" type="Control" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+script = ExtResource("15_rjupw")
+
+[node name="Label" type="Label" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer/Restart"]
+layout_mode = 2
+offset_left = 150.5
+offset_right = 249.5
+offset_bottom = 22.0
+mouse_filter = 0
+text = "Restart Game"
+label_settings = SubResource("LabelSettings_hwxbj")
+
+[node name="Botplay" type="Control" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+script = ExtResource("15_rjupw")
+
+[node name="Label" type="Label" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer/Botplay"]
+layout_mode = 2
+offset_left = 172.0
+offset_right = 228.0
+offset_bottom = 22.0
+mouse_filter = 0
+text = "Botplay"
+label_settings = SubResource("LabelSettings_k0plx")
+
+[node name="Quit" type="Control" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+script = ExtResource("15_rjupw")
+
+[node name="Label" type="Label" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer/Quit"]
+layout_mode = 2
+offset_left = 184.0
+offset_right = 216.0
+offset_bottom = 22.0
+mouse_filter = 0
+text = "Quit"
+label_settings = SubResource("LabelSettings_iexj7")
+
+[node name="Volume" type="Control" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+script = ExtResource("16_3uh64")
+numType = 1
+setting = "songVolume"
+
+[node name="Label" type="Label" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer/Volume"]
+layout_mode = 2
+offset_left = 75.5
+offset_right = 131.5
+offset_bottom = 22.0
+text = "Volume"
+label_settings = SubResource("LabelSettings_6sjof")
+
+[node name="HSlider" type="HSlider" parent="PauseViewportContainer/PauseViewport/Panel/ButtonContainer/Volume"]
+layout_mode = 0
+offset_left = 145.5
+offset_top = 4.0
+offset_right = 324.5
+offset_bottom = 20.0
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_ndkuf")
+min_value = -80.0
+max_value = 0.0
+step = 0.0
+
+[node name="BloomShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="BloomShader"]
+material = SubResource("ShaderMaterial_tthqh")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="SaturationShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="SaturationShader"]
+material = SubResource("ShaderMaterial_6762k")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="PcShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="PcShader"]
+material = SubResource("ShaderMaterial_h38fx")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2

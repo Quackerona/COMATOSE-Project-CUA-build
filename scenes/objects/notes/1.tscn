@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://jp0g3yikxw6p"]
+
+[ext_resource type="Script" path="res://source/gameplay/Note.cs" id="1_ofa6i"]
+[ext_resource type="Texture2D" uid="uid://l1p0j5mlsfhk" path="res://assets/images/noteskins/default/blue hold piece.png" id="1_v4j75"]
+[ext_resource type="Texture2D" uid="uid://cdudkxu816sts" path="res://assets/images/noteskins/default/blue hold end.png" id="2_lu6bg"]
+[ext_resource type="Texture2D" uid="uid://bkhjq1s2rarls" path="res://assets/images/noteskins/default/blue.png" id="3_wqxna"]
+
+[node name="1" type="Node2D"]
+script = ExtResource("1_ofa6i")
+
+[node name="Piece" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.701961)
+texture = ExtResource("1_v4j75")
+
+[node name="End" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.701961)
+texture = ExtResource("2_lu6bg")
+
+[node name="Note" type="Sprite2D" parent="."]
+texture = ExtResource("3_wqxna")

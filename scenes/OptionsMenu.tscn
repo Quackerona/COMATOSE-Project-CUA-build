@@ -1,0 +1,322 @@
+[gd_scene load_steps=24 format=3 uid="uid://ufop0st3grl8"]
+
+[ext_resource type="Script" path="res://source/menu/OptionsMenuBehavior.cs" id="1_0x4eg"]
+[ext_resource type="FontFile" uid="uid://clwl5mqvlxjh4" path="res://assets/fonts/camingo.ttf" id="2_853r7"]
+[ext_resource type="Script" path="res://source/menu/options/Checkbox.cs" id="3_mpog2"]
+[ext_resource type="Script" path="res://source/menu/options/Number.cs" id="4_vhex4"]
+[ext_resource type="Script" path="res://source/menu/options/Controls.cs" id="5_ectvj"]
+[ext_resource type="Shader" path="res://assets/shaders/Color.gdshader" id="5_n5qf3"]
+[ext_resource type="Shader" path="res://assets/shaders/Pc.gdshader" id="6_dlomd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w3hv6"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_rrh57"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_ksrhq"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_gnc78"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_sagal"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_h0d8y"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_h0ux7"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_4tm16"]
+font_size = 21
+
+[sub_resource type="LabelSettings" id="LabelSettings_lotm7"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_iyjtp"]
+font_size = 21
+
+[sub_resource type="LabelSettings" id="LabelSettings_ghfad"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_3aonn"]
+font_size = 21
+
+[sub_resource type="LabelSettings" id="LabelSettings_u26wb"]
+font = ExtResource("2_853r7")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_46nmu"]
+font_size = 21
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajvbk"]
+shader = ExtResource("5_n5qf3")
+shader_parameter/brightness = -0.1
+shader_parameter/contrast = 2.0
+shader_parameter/saturation = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ec22"]
+shader = ExtResource("6_dlomd")
+shader_parameter/curvature = 1.0
+shader_parameter/smear = 1.0
+shader_parameter/scanline_count = 300.0
+shader_parameter/blur_samples = 10
+
+[node name="OptionsMenu" type="Node2D"]
+script = ExtResource("1_0x4eg")
+
+[node name="Settings" type="VBoxContainer" parent="."]
+offset_left = 402.0
+offset_top = 86.5
+offset_right = 878.0
+offset_bottom = 633.5
+
+[node name="Downscroll" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+script = ExtResource("3_mpog2")
+setting = "downScroll"
+
+[node name="Label" type="Label" parent="Settings/Downscroll"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "downscroll"
+label_settings = SubResource("LabelSettings_w3hv6")
+
+[node name="CheckBox" type="CheckBox" parent="Settings/Downscroll"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 6.0
+offset_right = 232.0
+offset_bottom = 30.0
+
+[node name="GhostTapping" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+script = ExtResource("3_mpog2")
+setting = "ghostTapping"
+
+[node name="Label" type="Label" parent="Settings/GhostTapping"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "ghost tapping"
+label_settings = SubResource("LabelSettings_rrh57")
+
+[node name="CheckBox" type="CheckBox" parent="Settings/GhostTapping"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 6.0
+offset_right = 232.0
+offset_bottom = 30.0
+
+[node name="Fps" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+script = ExtResource("4_vhex4")
+setting = "fps"
+
+[node name="Label" type="Label" parent="Settings/Fps"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "fps"
+label_settings = SubResource("LabelSettings_ksrhq")
+
+[node name="HSlider" type="HSlider" parent="Settings/Fps"]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 12.0
+offset_right = 432.0
+offset_bottom = 28.0
+min_value = 60.0
+max_value = 1000.0
+value = 60.0
+
+[node name="Value" type="Label" parent="Settings/Fps"]
+layout_mode = 0
+offset_left = 442.0
+offset_right = 470.0
+offset_bottom = 35.0
+text = "60"
+label_settings = SubResource("LabelSettings_gnc78")
+
+[node name="VSync" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+script = ExtResource("3_mpog2")
+setting = "vSync"
+
+[node name="Label" type="Label" parent="Settings/VSync"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "vSync"
+label_settings = SubResource("LabelSettings_sagal")
+
+[node name="CheckBox" type="CheckBox" parent="Settings/VSync"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 6.0
+offset_right = 232.0
+offset_bottom = 30.0
+
+[node name="Fullscreen" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+script = ExtResource("3_mpog2")
+setting = "fullscreen"
+
+[node name="Label" type="Label" parent="Settings/Fullscreen"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "fullscreen"
+label_settings = SubResource("LabelSettings_h0d8y")
+
+[node name="CheckBox" type="CheckBox" parent="Settings/Fullscreen"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 6.0
+offset_right = 232.0
+offset_bottom = 30.0
+
+[node name="LeftArrow" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+script = ExtResource("5_ectvj")
+setting = "arrowLeft"
+
+[node name="Label" type="Label" parent="Settings/LeftArrow"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Left Arrow"
+label_settings = SubResource("LabelSettings_h0ux7")
+
+[node name="Panel" type="Panel" parent="Settings/LeftArrow"]
+layout_mode = 0
+offset_left = 213.0
+offset_right = 311.0
+offset_bottom = 40.0
+
+[node name="Control" type="Label" parent="Settings/LeftArrow"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 5.0
+offset_right = 270.0
+offset_bottom = 35.0
+text = "A"
+label_settings = SubResource("LabelSettings_4tm16")
+
+[node name="DownArrow" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+script = ExtResource("5_ectvj")
+setting = "arrowDown"
+
+[node name="Label" type="Label" parent="Settings/DownArrow"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Down Arrow"
+label_settings = SubResource("LabelSettings_lotm7")
+
+[node name="Panel" type="Panel" parent="Settings/DownArrow"]
+layout_mode = 0
+offset_left = 213.0
+offset_right = 311.0
+offset_bottom = 40.0
+
+[node name="Control" type="Label" parent="Settings/DownArrow"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 5.0
+offset_right = 270.0
+offset_bottom = 35.0
+text = "A"
+label_settings = SubResource("LabelSettings_iyjtp")
+
+[node name="UpArrow" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+script = ExtResource("5_ectvj")
+setting = "arrowUp"
+
+[node name="Label" type="Label" parent="Settings/UpArrow"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Up Arrow"
+label_settings = SubResource("LabelSettings_ghfad")
+
+[node name="Panel" type="Panel" parent="Settings/UpArrow"]
+layout_mode = 0
+offset_left = 213.0
+offset_right = 311.0
+offset_bottom = 40.0
+
+[node name="Control" type="Label" parent="Settings/UpArrow"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 5.0
+offset_right = 270.0
+offset_bottom = 35.0
+text = "A"
+label_settings = SubResource("LabelSettings_3aonn")
+
+[node name="RightArrow" type="Control" parent="Settings"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+script = ExtResource("5_ectvj")
+setting = "arrowRight"
+
+[node name="Label" type="Label" parent="Settings/RightArrow"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Right Arrow"
+label_settings = SubResource("LabelSettings_u26wb")
+
+[node name="Panel" type="Panel" parent="Settings/RightArrow"]
+layout_mode = 0
+offset_left = 213.0
+offset_right = 311.0
+offset_bottom = 40.0
+
+[node name="Control" type="Label" parent="Settings/RightArrow"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 5.0
+offset_right = 270.0
+offset_bottom = 35.0
+text = "A"
+label_settings = SubResource("LabelSettings_46nmu")
+
+[node name="SaturationShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="SaturationShader"]
+material = SubResource("ShaderMaterial_ajvbk")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="PcShader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="PcShader"]
+material = SubResource("ShaderMaterial_2ec22")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
